@@ -1,0 +1,74 @@
+<div class="d-md-none p-3 bg-white border-bottom d-flex justify-content-between align-items-center sticky-top">
+    <img src="/images/logo-small.png" alt="Logo" height="30">
+    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+        <i class="bi bi-list"></i>
+    </button>
+</div>
+<div class="offcanvas-md offcanvas-start border-end bg-white vh-100 flex-shrink-0 sticky-md-top" tabindex="-1" id="sidebarMenu" style="width: 219px;">
+
+<div class="d-flex flex-column flex-shrink-0 vh-100 pt-3 border-end" style="width: 219px;">
+    <a href="/" class="mx-auto mt-4 mb-1 text-decoration-none">
+        <img src="/images/logo-small.png" alt="Logo">
+    </a>
+    <hr>
+    <nav class="px-3">
+    <ul class="nav nav-pills flex-column mb-auto small">
+        <li class="nav-item ">
+            <a href="/" class="nav-link active " aria-current="page">
+                <i class="bi bi-house me-2"></i>
+                Главная
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/transactions" class="nav-link link-dark " aria-current="page">
+                <i class="bi bi-cash-coin me-2"></i>
+                Доходы и расходы
+            </a>
+        </li>
+        <li class="nav-item mb-1 ">
+            <button class="btn btn-toggle d-flex align-items-center w-100 rounded border-0 small collapsed " data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                <span class="small">Категории</span>
+                <i class="bi bi-chevron-right ms-auto arrow-icon"></i>
+            </button>
+            <div class="collapse" id="dashboard-collapse" style="">
+                <ul class="btn-toggle-nav list-unstyled border border-primary rounded-bottom">
+                    <li><a href="/income-list" class="nav-link d-block text-decoration-none ">Доходы</a></li>
+                    <li><a href="/expense-list" class="nav-link d-block text-decoration-none ">Расходы</a></li>
+
+                </ul>
+            </div>
+        </li>
+
+    </ul>
+    </nav>
+    <div class="d-flex align-content-center mt-auto px-3">
+        <span>Баланс:&nbsp;</span>
+        <span class="text-primary">500$</span>
+    </div>
+    <hr >
+    <div class="px-3 pb-4">
+
+        <div class="dropdown">
+           <a href="#" class="d-flex align-items-center w-100 text-decoration-none  pb-3"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+                <img src="/images/avatar.png" class="rounded-circle me-2"  alt="">
+                <span class="small text-primary-emphasis">Roman Chernov</span>
+            </a>
+
+            <ul class="dropdown-menu shadow w-100">
+                <li>
+                    <button class="dropdown-item text-primary" id="logoutBtn" type="button">
+                        <i class="bi bi-box-arrow-right me-2"></i>Выйти
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+</div>
+</div>
+<div class="flex-grow-1">
+    <div id="page-content"></div>
+</div>

@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center align-items-center min-vh-100 w-100">
+    <div class="text-center w-397">
+        <img class="img-fluid mb-6" src="/images/logo.png" alt="">
+        <h1 class="mb-4 text-primary-emphasis">Создайте аккаунт</h1>
+        <div class="input-group has-validation mb-2">
+            <span class="input-group-text text-secondary bg-secondary-subtle icon-wrapper" id="name-label"><i class="bi bi-person icon"></i></span>
+            <input id="name" type="text" class="form-control text-secondary" placeholder="Имя" aria-label="Name" aria-describedby="name-label">
+            <div id="validationServerNameFeedback" class="invalid-feedback">
+                Введите корректное имя
+            </div>
+        </div>
+        <div class="input-group has-validation mb-2">
+            <span class="input-group-text text-secondary bg-secondary-subtle icon-wrapper" id="lastName-label"><i class="bi bi-person icon"></i></span>
+            <input id="lastName" type="text" class="form-control text-secondary" placeholder="Фамилия" aria-label="Name" aria-describedby="lastName-label">
+            <div id="validationServerLastNameFeedback" class="invalid-feedback">
+                Введите корректную фамилию
+            </div>
+        </div>
+        <div class="input-group has-validation mb-2">
+            <span class="input-group-text text-secondary bg-secondary-subtle icon-wrapper" id="email-label"><i class="bi bi-envelope-open "></i></span>
+            <input id="email" type="text" class="form-control text-secondary" placeholder="Электронная почта" aria-label="Email" aria-describedby="email-label">
+            <div id="validationServerEmailFeedback" class="invalid-feedback">
+                Введите корректный email
+            </div>
+        </div>
+        <div class="input-group has-validation mb-2">
+            <span class="input-group-text text-secondary bg-secondary-subtle icon-wrapper" id="password-label"><i class="bi bi-lock "></i></span>
+            <input id="password" type="password" class="form-control text-secondary " placeholder="Пароль" aria-label="Password" aria-describedby="password-label">
+            <div id="validationServerPasswordFeedback" class="invalid-feedback">
+                Введите пароль
+            </div>
+        </div>
+        <div class="input-group has-validation mb-2">
+            <span class="input-group-text text-secondary bg-secondary-subtle icon-wrapper" id="password2-label"><i class="bi bi-lock "></i></span>
+            <input id="password2" type="password" class="form-control text-secondary " placeholder="Подтверждение пароля" aria-label="Password" aria-describedby="password2-label">
+            <div id="validationServerPassword2Feedback" class="invalid-feedback">
+                Повторите пароль
+            </div>
+        </div>
+
+        <button class="btn btn-primary w-100 mt-2 mb-2">Войти</button>
+        <div class="d-flex align-content-center justify-content-center w-100 fs-12">
+            <div class="me-2">Уже есть аккаунт?</div>
+            <a href="/login">Войдите в систему</a>
+        </div>
+
+    </div>
+</div>

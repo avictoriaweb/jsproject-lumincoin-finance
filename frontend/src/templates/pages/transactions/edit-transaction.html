@@ -1,0 +1,48 @@
+<div class="flex-grow-1 ms-2 ms-md-5 mt-5">
+    <h1 class="mb-4 text-primary-emphasis">Редактирование дохода/расхода</h1>
+<div class="w-397">
+    <div class="input-group mb-2">
+        <select class="form-select text-secondary" id="typeSelect">
+            <option selected>Доход</option>
+            <option>Расход</option>
+        </select>
+
+    </div>
+    <div class="input-group mb-2">
+        <select class="form-select text-secondary" id="categorySelect">
+            <option selected>Категория 1</option>
+            <option>Категория 2</option>
+        </select>
+
+    </div>
+    <div class="input-group has-validation mb-2">
+        <input id="amount" type="text" class="form-control text-secondary" placeholder="500$" aria-label="Amount" aria-describedby="amount-label">
+        <div id="validationServerAmountFeedback" class="invalid-feedback">
+            Введите корректную сумму
+        </div>
+    </div>
+    <div class="input-group has-validation mb-2">
+        <div class="position-relative w-100">
+            <input id="date" type="text" class="form-control text-secondary" data-target="datePicker" placeholder="11.09.2022" aria-label="Date" aria-describedby="date-label">
+            <input type="date" name="Дата" id="datePicker" class="position-absolute top-100 start-0 invisible mt-0">
+        </div>
+        <div id="validationServerDateFeedback" class="invalid-feedback">
+            Введите дату
+        </div>
+    </div>
+    <div class="input-group has-validation mb-3">
+        <input id="comment" type="text" class="form-control text-secondary" placeholder="Комментарий..." aria-label="Comment" aria-describedby="comment-label">
+        <div id="validationServerCommentFeedback" class="invalid-feedback">
+            Введите комментарий
+        </div>
+    </div>
+</div>
+    <div class="d-flex flex-wrap flex-md-nowrap mb-5 gap-2">
+        <button type="button" class="btn btn-success flex-grow-0 " id="btnSave">Сохранить</button>
+        <button type="button" class="btn btn-danger flex-grow-0 " id="btnCancel">Отмена</button>
+    </div>
+
+
+
+
+</div>

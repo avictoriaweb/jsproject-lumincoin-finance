@@ -1,0 +1,69 @@
+@use "fonts.scss";
+@use "bootstrap/scss/bootstrap" with (
+  $font-family-sans-serif: ('Roboto', sans-serif),
+  $font-family-base: ('Roboto', sans-serif)
+);
+
+
+// Import the Sass files as usual
+@use "bootstrap-icons/font/bootstrap-icons" with (
+$bootstrap-icons-font-dir: "bootstrap-icons/font/fonts"
+);
+
+/*$font-family-base: 'Roboto', sans-serif;
+$font-family-sans-serif: 'Roboto', sans-serif;
+
+@import "bootstrap/scss/bootstrap";*/
+.w-397 {
+  width: 397px;
+  max-width: 100%;
+}
+.w-1140 {
+  max-width: 1140px;
+
+}
+.mb-6 {
+  margin-bottom: 3.75rem;
+}
+.fs-12 {
+  font-size: 0.75rem;
+}
+.icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+.icon-wrapper {
+  width: 42px;
+  justify-content: center;
+}
+
+/* Базовое состояние иконки */
+.arrow-icon {
+  transition: transform 0.3s ease;
+ // font-size: 0.8em; /* Делаем галочку чуть изящнее */
+}
+
+/* Состояние, когда кнопка НЕ collapsed (т.е. меню открыто) */
+.btn-toggle:not(.collapsed) {
+  background-color: var(--bs-primary);
+  color: white;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.btn-toggle:not(.collapsed) .arrow-icon {
+  transform: rotate(90deg);
+}
+
+
+/* Эффект при наведении на ссылки внутри выпадающего списка */
+a.nav-link:hover, .nav-item .btn-toggle:hover {
+  background-color: var(--bs-primary) !important; /* Синий фон */
+  color: white !important;                        /* Белый текст */
+
+}
+.btn-toggle-nav a.nav-link:hover {
+  border-radius: 0 !important;
+}
+
+
+

@@ -1,0 +1,134 @@
+<div class="flex-grow-1 ms-2 ms-md-5 mt-5">
+    <h1 class="mb-4 text-primary-emphasis">Расходы</h1>
+
+    <div class="container w-1140 py-4">
+        <div class="row g-4">
+
+            <div class="col-12 col-lg-6 col-xl-4 ">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold text-primary-emphasis">Еда</h4>
+                        <div class="mt-3">
+                            <button class="btn btn-primary me-2 btnEdit" data-id="category-id">Редактировать</button>
+                            <button class="btn btn-danger btnDelete" data-id="category-id">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 ">
+                <div class="card h-100  shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold text-primary-emphasis">Жилье</h4>
+                        <div class="mt-3">
+                            <button class="btn btn-primary me-2 btnEdit" data-id="category-id">Редактировать</button>
+                            <button class="btn btn-danger btnDelete" data-id="category-id">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 ">
+                <div class="card h-100  shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold text-primary-emphasis">Здоровье</h4>
+                        <div class="mt-3">
+                            <button class="btn btn-primary me-2 btnEdit" data-id="category-id">Редактировать</button>
+                            <button class="btn btn-danger btnDelete" data-id="category-id">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 ">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold text-primary-emphasis">Кафе</h4>
+                        <div class="mt-3">
+                            <button class="btn btn-primary me-2 btnEdit" data-id="category-id">Редактировать</button>
+                            <button class="btn btn-danger btnDelete" data-id="category-id">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 ">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold text-primary-emphasis">Авто</h4>
+                        <div class="mt-3">
+                            <button class="btn btn-primary me-2 btnEdit" data-id="category-id">Редактировать</button>
+                            <button class="btn btn-danger btnDelete" data-id="category-id">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 ">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold text-primary-emphasis">Одежда</h4>
+                        <div class="mt-3">
+                            <button class="btn btn-primary me-2 btnEdit" data-id="category-id">Редактировать</button>
+                            <button class="btn btn-danger btnDelete" data-id="category-id">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 ">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold text-primary-emphasis">Развлечения</h4>
+                        <div class="mt-3">
+                            <button class="btn btn-primary me-2 btnEdit" data-id="category-id">Редактировать</button>
+                            <button class="btn btn-danger btnDelete" data-id="category-id">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 ">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold text-primary-emphasis">Счета</h4>
+                        <div class="mt-3">
+                            <button class="btn btn-primary me-2 btnEdit" data-id="category-id">Редактировать</button>
+                            <button class="btn btn-danger btnDelete" data-id="category-id">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 ">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold text-primary-emphasis">Спорт</h4>
+                        <div class="mt-3">
+                            <button class="btn btn-primary me-2 btnEdit" data-id="category-id">Редактировать</button>
+                            <button class="btn btn-danger btnDelete" data-id="category-id">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 ">
+                <div class="card h-100 shadow-sm cursor-pointer" role="button" id="btnCreateExpense">
+                    <div class="card-body d-flex align-items-center justify-content-center ">
+                    <div class="text-center text-body-tertiary fs-1">+</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center p-4 text-primary-emphasis">
+                Вы действительно хотите удалить категорию? Связанные расходы останутся без категории.
+                <div class="d-flex justify-content-center mt-3 gap-2">
+                    <button type="button" class="btn btn-success" id="btnConfirmDelete">Да, удалить</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
