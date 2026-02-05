@@ -48,6 +48,7 @@ export class Dashboard {
             data: data,
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: { position: 'top' },
                 }

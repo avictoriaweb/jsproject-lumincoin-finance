@@ -12,27 +12,27 @@
     </a>
     <hr>
     <nav class="px-3">
-    <ul class="nav nav-pills flex-column mb-auto small">
+    <ul class="nav nav-pills flex-column mb-auto small gap-1">
         <li class="nav-item ">
             <a href="/" class="nav-link active " aria-current="page">
                 <i class="bi bi-house me-2"></i>
                 Главная
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item ">
             <a href="/transactions" class="nav-link link-dark " aria-current="page">
                 <i class="bi bi-cash-coin me-2"></i>
                 Доходы и расходы
             </a>
         </li>
-        <li class="nav-item mb-1 ">
+        <li class="nav-item  ">
             <button class="btn btn-toggle d-flex align-items-center w-100 rounded border-0 small collapsed " data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
                 <span class="small">Категории</span>
                 <i class="bi bi-chevron-right ms-auto arrow-icon"></i>
             </button>
             <div class="collapse" id="dashboard-collapse" style="">
-                <ul class="btn-toggle-nav list-unstyled border border-primary rounded-bottom">
-                    <li><a href="/income-list" class="nav-link d-block text-decoration-none ">Доходы</a></li>
+                <ul class="flex-column btn-toggle-nav list-unstyled border border-primary rounded-bottom ">
+                    <li><a href="/income-list" class="nav-link d-block text-decoration-none my-1">Доходы</a></li>
                     <li><a href="/expense-list" class="nav-link d-block text-decoration-none ">Расходы</a></li>
 
                 </ul>
@@ -69,6 +69,6 @@
     </div>
 </div>
 </div>
-<div class="flex-grow-1">
-    <div id="page-content"></div>
+<div class="flex-grow-1" >
+    <div id="page-content" class="w-100 w-1221 px-4 px-md-5"></div>
 </div>

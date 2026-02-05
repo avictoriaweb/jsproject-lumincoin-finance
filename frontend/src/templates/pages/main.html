@@ -1,4 +1,4 @@
-<div class="ms-2 ms-md-5 mt-5">
+<div class=" mt-5 overflow-x-hidden">
     <h1 class="mb-4 text-primary-emphasis">Главная</h1>
 
     <div class="d-flex flex-wrap flex-lg-nowrap align-items-center gap-1 gap-sm-2 w-100 mb-3 mb-md-5
@@ -26,21 +26,27 @@
                 <input type="date" name="Дата" id="dateTo" class="position-absolute top-100 start-0 invisible mt-0">
             </div>
         </div>
+    </div><div class="container-fluid p-0 " >
+    <div class="row g-0">
+
+      <div class="col-12 col-sm-6 text-center mb-5 mb-sm-0 position-relative chart-divider">
+            <h4 class="fw-bold text-primary-emphasis mb-3">Доходы</h4>
+            <div class="mx-auto" style="max-width: 437px; aspect-ratio: 1 / 1;">
+                <canvas id="incomeChart"></canvas>
+            </div>
+        </div>
+
+      <div class="col-12 col-sm-6 text-center">
+            <h4 class="fw-bold text-primary-emphasis mb-3">Расходы</h4>
+            <div class="mx-auto" style="max-width: 437px; aspect-ratio: 1 / 1;">
+                <canvas id="expenseChart"></canvas>
+            </div>
+        </div>
     </div>
+</div>
 
-   <div class="container w-1140 ">
-       <div class="row">
-           <div class="col-12 col-sm-6 text-center p-0 ">
-               <h4 class="fw-bold text-primary-emphasis mb-3">Доходы</h4>
-               <div class="border-end" ><canvas id="incomeChart"></canvas></div>
-           </div>
-           <div class="col-12 col-sm-6 text-center p-0 ">
-               <h4 class="fw-bold text-primary-emphasis mb-3">Расходы</h4>
-               <div ><canvas id="expenseChart"></canvas></div>
-           </div>
-       </div>
 
-   </div>
+
 
 
 </div>
