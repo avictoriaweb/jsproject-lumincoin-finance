@@ -2,6 +2,8 @@
     <div class="text-center w-397">
     <img class="img-fluid mb-6" src="/images/logo.png" alt="">
     <h1 class="mb-4 text-primary-emphasis">Вход</h1>
+        <div id="common-error" class="error invalid-feedback text-center mb-3">Неправильный email или пароль</div>
+
         <div class="input-group has-validation mb-2">
             <span class="input-group-text text-secondary bg-secondary-subtle" id="email-label"><i class="bi bi-envelope-open"></i></span>
             <input id="email" type="text" class="form-control text-secondary" placeholder="Электронная почта" aria-label="Email" aria-describedby="email-label">
@@ -22,7 +24,7 @@
                 Запомнить меня
             </label>
         </div>
-    <button class="btn btn-primary w-100 mt-3 mb-2">Войти</button>
+    <button class="btn btn-primary w-100 mt-3 mb-2" id="process-button">Войти</button>
 <div class="d-flex fs-12">
     <div class="me-2">Ещё нет аккаунта?</div>
     <a href="/sign-up">Пройдите регистрацию</a>

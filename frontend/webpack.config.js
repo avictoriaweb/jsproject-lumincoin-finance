@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const autoprefixer = require('autoprefixer');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: './src/app.js',
@@ -19,7 +20,9 @@ module.exports = {
         port: 9000,
         historyApiFallback: true,
     },
-    plugins: [new HtmlWebpackPlugin({
+    plugins: [
+        new Dotenv(),
+        new HtmlWebpackPlugin({
         template: "./index.html",
     }),
         new CopyPlugin({
