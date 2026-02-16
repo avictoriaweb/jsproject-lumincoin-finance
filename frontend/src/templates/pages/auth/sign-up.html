@@ -2,6 +2,9 @@
     <div class="text-center w-397">
         <img class="img-fluid mb-6" src="/images/logo.png" alt="">
         <h1 class="mb-4 text-primary-emphasis">Создайте аккаунт</h1>
+        <div id="common-error" class="error invalid-feedback text-center mb-3">Не удалось зарегистрировать
+            пользователя, обратитесь в поддержку.
+        </div>
         <div class="input-group has-validation mb-2">
             <span class="input-group-text text-secondary bg-secondary-subtle icon-wrapper" id="name-label"><i class="bi bi-person icon"></i></span>
             <input id="name" type="text" class="form-control text-secondary" placeholder="Имя" aria-label="Name" aria-describedby="name-label">
@@ -38,7 +41,7 @@
             </div>
         </div>
 
-        <button class="btn btn-primary w-100 mt-2 mb-2">Войти</button>
+        <button class="btn btn-primary w-100 mt-2 mb-2" id="process-button">Войти</button>
         <div class="d-flex align-content-center justify-content-center w-100 fs-12">
             <div class="me-2">Уже есть аккаунт?</div>
             <a href="/login">Войдите в систему</a>
