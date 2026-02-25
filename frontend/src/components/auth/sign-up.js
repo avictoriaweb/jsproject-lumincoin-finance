@@ -48,14 +48,12 @@ export class SignUp{
                 password: this.passwordElement.value,
                 passwordRepeat: this.passwordRepeatElement.value,
             });
-            console.log(signupResult);
             if (signupResult) {
                 const loginResult = await AuthService.logIn({
                         email: this.emailElement.value,
                         password: this.passwordElement.value,
                         rememberMe: false
                 });
-                console.log(loginResult);
                 if (loginResult) {
                     AuthUtils.setAuthInfo(loginResult.tokens.accessToken, loginResult.tokens.refreshToken, {
                         id: loginResult.user.id,
