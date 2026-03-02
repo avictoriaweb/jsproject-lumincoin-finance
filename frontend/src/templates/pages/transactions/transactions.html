@@ -6,25 +6,25 @@
     </div>
     <div class="d-flex flex-wrap align-items-center gap-1 gap-sm-2 w-100 mb-3 mb-md-5">
         <div class="d-flex flex-nowrap gap-1 gap-sm-2 mb-2 mb-sm-0">
-            <button type="button" class="btn btn-secondary">Сегодня</button>
-            <button type="button" class="btn btn-outline-secondary">Неделя</button>
-            <button type="button" class="btn btn-outline-secondary">Месяц</button>
+            <button type="button" class="btn-period btn btn-secondary" data-period="today">Сегодня</button>
+            <button type="button" class="btn-period btn btn-outline-secondary" data-period="week">Неделя</button>
+            <button type="button" class="btn-period btn btn-outline-secondary" data-period="month">Месяц</button>
         </div>
         <div class="d-flex flex-nowrap gap-1 gap-sm-2 mb-2 mb-sm-0 ">
-            <button type="button" class="btn btn-outline-secondary">Год</button>
-            <button type="button" class="btn btn-outline-secondary">Все</button>
-            <button type="button" class="btn btn-outline-secondary">Интервал</button>
+            <button type="button" class="btn-period btn btn-outline-secondary" data-period="year">Год</button>
+            <button type="button" class="btn-period btn btn-outline-secondary" data-period="all">Все</button>
+            <button type="button" class="btn-period btn btn-outline-secondary" data-period="interval">Интервал</button>
         </div>
         <div class="d-flex flex-nowrap gap-1 gap-sm-2 mb-2 mb-sm-0 ">
             <span>с</span>
 
             <div class="position-relative d-inline-block">
-                <a href="#" class="text-secondary date-link" data-target="dateFrom">Дата</a>
+                <a href="#" class="text-secondary date-link" data-target="dateFrom" id="dateFromLink">Дата</a>
                 <input type="date" name="Дата" id="dateFrom" class="position-absolute top-100 start-0 invisible mt-0">
             </div>
             <span>по</span>
             <div class="position-relative d-inline-block">
-                <a href="#" class="text-secondary date-link" data-target="dateTo">Дата</a>
+                <a href="#" class="text-secondary date-link" data-target="dateTo" id="dateToLink">Дата</a>
                 <input type="date" name="Дата" id="dateTo" class="position-absolute top-100 start-0 invisible mt-0">
             </div>
         </div>
@@ -44,38 +44,8 @@
                     <th></th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td class="text-success">доход</td>
-                    <td>зарплата</td>
-                    <td>500$</td>
-                    <td>11.09.2022</td>
-                    <td></td>
-                    <td>
-                        <div class="d-flex justify-content-center gap-1">
-                            <button class="btn py-0 btnDelete" data-id="transaction-id"><i class="bi bi-trash3"></i>
-                            </button>
-                            <a href="/edit-transaction" class="btn py-0"><i class="bi bi-pencil"></i></a>
-                        </div>
-                    </td>
+                <tbody id="records-container">
 
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td class="text-danger">расход</td>
-                    <td>жильё</td>
-                    <td>2500$</td>
-                    <td>12.09.2022</td>
-                    <td></td>
-                    <td>
-                        <div class="d-flex justify-content-center gap-1">
-                            <button class="btn py-0"><i class="bi bi-trash3"></i></button>
-                            <a href="/edit-transaction" class="btn py-0"><i class="bi bi-pencil"></i></a>
-                        </div>
-                    </td>
-
-                </tr>
 
                 </tbody>
             </table>

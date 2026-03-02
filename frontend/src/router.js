@@ -1,17 +1,21 @@
-import {Transactions} from "./components/transactions.js";
-import {CreateTransaction} from "./components/create-transaction";
-import {EditTransaction} from "./components/edit-transaction";
-import {IncomeList} from "./components/income-list";
-import {CreateIncome} from "./components/create-income";
-import {EditIncome} from "./components/edit-income";
-import {ExpenseList} from "./components/expense-list";
-import {CreateExpense} from "./components/create-expense";
-import {EditExpense} from "./components/edit-expense";
+import {Transactions} from "./components/transactions/transactions.js";
+import {CreateTransaction} from "./components/transactions/create-transaction";
+import {EditTransaction} from "./components/transactions/edit-transaction";
+import {IncomeList} from "./components/category-income/income-list";
+import {CreateIncome} from "./components/category-income/create-income";
+import {EditIncome} from "./components/category-income/edit-income";
+import {ExpenseList} from "./components/category-expense/expense-list";
+import {CreateExpense} from "./components/category-expense/create-expense";
+import {EditExpense} from "./components/category-expense/edit-expense";
 import {Dashboard} from "./components/dashboard";
 import {Login} from "./components/auth/login";
 import {Logout} from "./components/auth/logout";
 import {AuthUtils} from "./utils/auth-utils";
 import {SignUp} from "./components/auth/sign-up";
+import {IncomeDelete} from "./components/category-income/delete-income";
+import {ExpenseDelete} from "./components/category-expense/delete-expense";
+import {TransactionDelete} from "./components/transactions/delete-transaction";
+import {BalanceService} from "./services/balance-service";
 
 
 export class Router {
@@ -109,6 +113,13 @@ export class Router {
                 scripts: [],
                 styles: []
             },
+            //удаление переделала на запрос в самой странице, без открытия нового роута. для отрисовки таблицы с фильтром.
+            // {
+            //     route: '/delete-transaction',
+            //     load: () => {
+            //         new TransactionDelete(this.openNewRoute.bind(this));
+            //     },
+            // },
             {
                 route: '/income-list',
                 title: 'Доходы',
@@ -146,6 +157,12 @@ export class Router {
                 styles: []
             },
             {
+                route: '/delete-income',
+                load: () => {
+                    new IncomeDelete(this.openNewRoute.bind(this));
+                },
+            },
+            {
                 route: '/expense-list',
                 title: 'Расходы',
                 filePathTemplate: '/templates/pages/expenses/expense-list.html',
@@ -181,7 +198,12 @@ export class Router {
                 scripts: [],
                 styles: []
             },
-
+            {
+                route: '/delete-expense',
+                load: () => {
+                    new ExpenseDelete(this.openNewRoute.bind(this));
+                },
+            },
 
         ];
     }
@@ -189,7 +211,7 @@ export class Router {
     initEvents() {
         window.addEventListener('DOMContentLoaded', this.activateRoute.bind(this));
         window.addEventListener('popstate', this.activateRoute.bind(this));
-        // document.addEventListener('click', this.clickHandler.bind(this));
+        document.addEventListener('click', this.clickHandler.bind(this));
     }
 
     async openNewRoute(url) {
@@ -227,6 +249,7 @@ export class Router {
                 this.sidebarPageElement.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
 
                 this.profileNameElement = document.getElementById('profile-name');
+                this.balanceElement = document.getElementById('balance');
                 if (!this.userName) {
 
                     let userInfo = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
@@ -239,6 +262,8 @@ export class Router {
 
                 }
                 this.profileNameElement.innerText = this.userName;
+                const balance = await BalanceService.getBalance();
+                this.balanceElement.innerText = balance.balance.balance + '$';
                 this.activateMenuItem(newRoute.route);
                 if(newRoute.route === "/create-expense" || newRoute.route === "/edit-expense"){
                     this.activateMenuItem("/expense-list");
@@ -310,5 +335,29 @@ export class Router {
     async redirectToLogin() {
         history.pushState({}, '', '/login');
         await this.activateRoute();
+    }
+
+    async clickHandler(e) {
+
+        let element = null;
+        if (e.target.nodeName === 'A') {
+            element = e.target;
+        } else if (e.target.parentNode.nodeName === 'A') {
+            element = e.target.parentNode;
+        }
+
+        if (element) {
+            e.preventDefault();
+
+            const currentRoute = window.location.pathname;
+            const url = element.href.replace(window.location.origin, '');
+            if (!url || (currentRoute === url.replace('#', '')) || url.startsWith('javascript:void(0)')) {
+                return;
+            }
+
+            await this.openNewRoute(url);
+        }
+
+
     }
 }
