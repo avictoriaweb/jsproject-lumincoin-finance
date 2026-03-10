@@ -221,7 +221,7 @@ export class Router {
     }
 
     async activateRoute(e, oldRoute = null) {
-        if (oldRoute) {
+        if (oldRoute && typeof oldRoute.unload === 'function') {
     oldRoute.unload(); 
 }
         const urlRoute = window.location.pathname;
