@@ -223,7 +223,7 @@ export class Router {
     async activateRoute(e, oldRoute = null) {
     if(oldRoute){
         const oldRouteItem = this.routes.find(item => item.route === oldRoute);
-        if(oldRouteItem && typeof oldRouteItem.unload === 'function'{
+        if(oldRouteItem && typeof oldRouteItem.unload === 'function'){
             oldRouteItem.unload();
         }
     }
