@@ -221,9 +221,13 @@ export class Router {
     }
 
     async activateRoute(e, oldRoute = null) {
-        if (oldRoute && typeof oldRoute.unload === 'function') {
-    oldRoute.unload(); 
-}
+    if(oldRoute){
+        const oldRouteItem = this.routes.find(item => item.route === oldRoute);
+        if(oldRouteItem && typeof oldRouteItem.unload === 'function'{
+            oldRouteItem.unload();
+        }
+    }
+       
         const urlRoute = window.location.pathname;
         const newRoute = this.routes.find(item => item.route === urlRoute);
         if (newRoute) {
