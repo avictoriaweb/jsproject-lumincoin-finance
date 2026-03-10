@@ -16,7 +16,7 @@ import {IncomeDelete} from "./components/category-income/delete-income";
 import {ExpenseDelete} from "./components/category-expense/delete-expense";
 import {TransactionDelete} from "./components/transactions/delete-transaction";
 import {BalanceService} from "./services/balance-service";
-
+import * as bootstrap from "bootstrap";
 
 export class Router {
     constructor() {
@@ -336,6 +336,23 @@ export class Router {
                           collapseElement.classList.remove('show');}
             }
         }
+
+        const sidebarElement = document.getElementById('sidebarMenu');
+
+// Слушаем клики по ссылкам в меню
+        sidebarElement.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(sidebarElement);
+
+                if (bsOffcanvas) {
+                    // Закрываем меню программно
+                    bsOffcanvas.hide();
+
+                    // Ждем окончания анимации (300мс), прежде чем менять страницу (опционально)
+                    // Или просто чистим body сразу после вызова hide()
+                }
+            }
+        });
 
     }
 
