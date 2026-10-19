@@ -1,7 +1,8 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.ts",
+  "type": "module",
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve --open"
@@ -21,6 +22,8 @@
     "sass": "^1.97.0",
     "sass-loader": "^16.0.6",
     "style-loader": "^4.0.0",
+    "ts-loader": "^9.6.2",
+    "typescript": "^6.0.2",
     "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"

@@ -1,0 +1,408 @@
+import {Transactions} from "./components/transactions/transactions";
+import {CreateTransaction} from "./components/transactions/create-transaction";
+import {EditTransaction} from "./components/transactions/edit-transaction";
+import {IncomeList} from "./components/category-income/income-list";
+import {CreateIncome} from "./components/category-income/create-income";
+import {EditIncome} from "./components/category-income/edit-income";
+import {ExpenseList} from "./components/category-expense/expense-list";
+import {CreateExpense} from "./components/category-expense/create-expense";
+import {EditExpense} from "./components/category-expense/edit-expense";
+import {Dashboard} from "./components/dashboard";
+import {Login} from "./components/auth/login";
+import {Logout} from "./components/auth/logout";
+import {AuthUtils} from "./utils/auth-utils";
+import {SignUp} from "./components/auth/sign-up";
+import {IncomeDelete} from "./components/category-income/delete-income";
+import {ExpenseDelete} from "./components/category-expense/delete-expense";
+import {TransactionDelete} from "./components/transactions/delete-transaction";
+import {BalanceService} from "./services/balance-service";
+import * as bootstrap from "bootstrap";
+import type {RouteType} from "./types/route.type";
+import type {AuthInfo} from "./types/authkey.type";
+import type {UserInfoType} from "./types/user-info.type";
+import type {BalanceType} from "./types/balance.type";
+
+export class Router {
+    readonly contentPageElement: HTMLElement | null;
+    readonly sidebarPageElement: HTMLElement | null;
+    readonly profileNameElement: HTMLElement | null;
+    readonly balanceElement: HTMLElement | null;
+    private userName: string | null = null;
+    private routes: RouteType[];
+
+    constructor() {
+        this.contentPageElement = document.getElementById('content');
+        this.sidebarPageElement = document.getElementById('page-content');
+        this.profileNameElement = document.getElementById('profile-name');
+        this.balanceElement = document.getElementById('balance');
+
+        this.initEvents();
+        this.routes = [
+            {
+                route: '/',
+                title: 'Главная',
+                filePathTemplate: '/templates/pages/main.html',
+                useLayout: '/templates/sidebar.html',
+                needAuth: true,
+                load: () => {
+                    new Dashboard(this.openNewRoute.bind(this));
+                },
+                scripts: [],
+                styles: []
+            },
+            {
+                route: '/404',
+                title: 'Страница не найдена',
+                filePathTemplate: '/templates/pages/404.html',
+                useLayout: false
+            },
+            {
+                route: '/login',
+                title: 'Авторизация',
+                filePathTemplate: '/templates/pages/auth/login.html',
+                load: () => {
+                    document.body.classList.add('login-page');
+                    document.body.style.height = '100vh';
+                    new Login(this.openNewRoute.bind(this));
+                },
+                unload: () => {
+                    document.body.classList.remove('login-page');
+                    document.body.style.height = 'auto';
+                },
+                styles: ['icheck-bootstrap.min.css']
+            },
+            {
+                route: '/sign-up',
+                title: 'Регистрация',
+                filePathTemplate: '/templates/pages/auth/sign-up.html',
+                load: () => {
+                    document.body.classList.add('register-page');
+                    document.body.style.height = '100vh';
+                    new SignUp(this.openNewRoute.bind(this));
+                },
+                unload: () => {
+                    document.body.classList.remove('register-page');
+                    document.body.style.height = 'auto';
+                },
+                styles: ['icheck-bootstrap.min.css']
+            },
+            {
+                route: '/logout',
+                load: () => {
+                    new Logout(this.openNewRoute.bind(this));
+                }
+            },
+            {
+                route: '/transactions',
+                title: 'Доходы и расходы',
+                filePathTemplate: '/templates/pages/transactions/transactions.html',
+                useLayout: '/templates/sidebar.html',
+                needAuth: true,
+                load: () => {
+                    new Transactions(this.openNewRoute.bind(this));
+                },
+                scripts: [],
+                styles: []
+            },
+            {
+                route: '/create-transaction',
+                title: 'Создание дохода/расхода',
+                filePathTemplate: '/templates/pages/transactions/create-transaction.html',
+                useLayout: '/templates/sidebar.html',
+                needAuth: true,
+                load: () => {
+                    new CreateTransaction(this.openNewRoute.bind(this));
+                },
+                scripts: [],
+                styles: []
+            },
+            {
+                route: '/edit-transaction',
+                title: 'Редактирование дохода/расхода',
+                filePathTemplate: '/templates/pages/transactions/edit-transaction.html',
+                useLayout: '/templates/sidebar.html',
+                needAuth: true,
+                load: () => {
+                    new EditTransaction(this.openNewRoute.bind(this));
+                },
+                scripts: [],
+                styles: []
+            },
+            //удаление переделала на запрос в самой странице, без открытия нового роута. для отрисовки таблицы с фильтром.
+            // {
+            //     route: '/delete-transaction',
+            //     load: () => {
+            //         new TransactionDelete(this.openNewRoute.bind(this));
+            //     },
+            // },
+            {
+                route: '/income-list',
+                title: 'Доходы',
+                filePathTemplate: '/templates/pages/incomes/income-list.html',
+                useLayout: '/templates/sidebar.html',
+                needAuth: true,
+                load: () => {
+                    new IncomeList(this.openNewRoute.bind(this));
+                },
+                scripts: [],
+                styles: []
+            },
+            {
+                route: '/create-income',
+                title: 'Создание дохода',
+                filePathTemplate: '/templates/pages/incomes/create-income.html',
+                useLayout: '/templates/sidebar.html',
+                needAuth: true,
+                load: () => {
+                    new CreateIncome(this.openNewRoute.bind(this));
+                },
+                scripts: [],
+                styles: []
+            },
+            {
+                route: '/edit-income',
+                title: 'Редактирование дохода',
+                filePathTemplate: '/templates/pages/incomes/edit-income.html',
+                useLayout: '/templates/sidebar.html',
+                needAuth: true,
+                load: () => {
+                    new EditIncome(this.openNewRoute.bind(this));
+                },
+                scripts: [],
+                styles: []
+            },
+            {
+                route: '/delete-income',
+                load: () => {
+                    new IncomeDelete(this.openNewRoute.bind(this));
+                },
+            },
+            {
+                route: '/expense-list',
+                title: 'Расходы',
+                filePathTemplate: '/templates/pages/expenses/expense-list.html',
+                useLayout: '/templates/sidebar.html',
+                needAuth: true,
+                load: () => {
+                    new ExpenseList(this.openNewRoute.bind(this));
+                },
+                scripts: [],
+                styles: []
+            },
+            {
+                route: '/create-expense',
+                title: 'Создание расхода',
+                filePathTemplate: '/templates/pages/expenses/create-expense.html',
+                useLayout: '/templates/sidebar.html',
+                needAuth: true,
+                load: () => {
+                    new CreateExpense(this.openNewRoute.bind(this));
+                },
+                scripts: [],
+                styles: []
+            },
+            {
+                route: '/edit-expense',
+                title: 'Редактирование расхода',
+                filePathTemplate: '/templates/pages/expenses/edit-expense.html',
+                useLayout: '/templates/sidebar.html',
+                needAuth: true,
+                load: () => {
+                    new EditExpense(this.openNewRoute.bind(this));
+                },
+                scripts: [],
+                styles: []
+            },
+            {
+                route: '/delete-expense',
+                load: () => {
+                    new ExpenseDelete(this.openNewRoute.bind(this));
+                },
+            },
+
+        ];
+    }
+
+    private initEvents(): void {
+        window.addEventListener('DOMContentLoaded', this.activateRoute.bind(this));
+        window.addEventListener('popstate', this.activateRoute.bind(this));
+        document.addEventListener('click', this.clickHandler.bind(this));
+    }
+
+    private async openNewRoute(url: string): Promise<void> {
+        const currentRoute: string | null = window.location.pathname;
+        history.pushState({}, '', url);
+        await this.activateRoute(null, currentRoute);
+    }
+
+    async activateRoute(e?: Event | null, oldRoute: string | null = null): Promise<void> {
+        if (oldRoute) {
+            const oldRouteItem: RouteType | undefined = this.routes.find(item => item.route === oldRoute);
+            if (oldRouteItem && typeof oldRouteItem.unload === 'function') {
+                oldRouteItem.unload();
+            }
+        }
+
+        const urlRoute: string = window.location.pathname;
+        const newRoute: RouteType | undefined = this.routes.find(item => item.route === urlRoute);
+        if (newRoute) {
+            //проверка авторизован ли пользователь
+            if (newRoute.needAuth) {
+                const accessToken: string | AuthInfo | null = AuthUtils.getAuthInfo(AuthUtils.accessTokenKey);
+                const refreshToken: string | AuthInfo | null = AuthUtils.getAuthInfo(AuthUtils.refreshTokenKey);
+                // 1. Если вообще нет токенов - на логин
+                if (!accessToken && !refreshToken) {
+                    return this.redirectToLogin();
+                }
+
+                // 2. Если accessToken пропал, но есть refreshToken - пытаемся обновиться
+                if (!accessToken && refreshToken) {
+                    const result: boolean = await AuthUtils.updateRefreshToken();
+                    if (!result) {
+                        return this.redirectToLogin();
+                    }
+                }
+
+            }
+
+            if (newRoute.useLayout) {
+                if (this.contentPageElement)
+                    this.contentPageElement.innerHTML = await fetch(newRoute.useLayout as string).then(response => response.text());
+                if (this.sidebarPageElement && newRoute.filePathTemplate)
+                    this.sidebarPageElement.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
+
+                if (!this.userName) {
+
+                    let userInfo: string | AuthInfo | null = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
+                    if (userInfo) {
+                        let userInfoParsed: UserInfoType = JSON.parse(userInfo as string);
+                        if (userInfoParsed.name && userInfoParsed.lastName) {
+                            this.userName = userInfoParsed.name + ' ' + userInfoParsed.lastName;
+                        }
+                    }
+
+                }
+                if (this.profileNameElement && this.userName)
+                    this.profileNameElement.innerText = this.userName;
+                const balance: BalanceType = await BalanceService.getBalance();
+                if (this.balanceElement && balance.balance)
+                    this.balanceElement.innerText = balance.balance.balance + '$';
+                this.activateMenuItem(newRoute.route);
+                if (newRoute.route === "/create-expense" || newRoute.route === "/edit-expense") {
+                    this.activateMenuItem("/expense-list");
+                } else if (newRoute.route === "/create-income" || newRoute.route === "/edit-income") {
+                    this.activateMenuItem("/income-list");
+                } else if (newRoute.route === "/create-transaction" || newRoute.route === "/edit-transaction") {
+                    this.activateMenuItem("/transactions");
+                }
+
+            } else {
+                if (this.contentPageElement && newRoute.filePathTemplate)
+                    this.contentPageElement.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
+            }
+
+            if (newRoute.load && typeof newRoute.load === 'function') {
+                newRoute.load();
+            }
+        } else {
+            console.log('No route found');
+            history.pushState({}, '', '/404');
+            await this.activateRoute();
+        }
+
+    }
+
+    activateMenuItem(route: string) {
+        //для пунктов меню верхнего уровня
+        const menuItems: NodeListOf<Element> = document.querySelectorAll('.sidebar .nav-link');
+        menuItems.forEach(item => {
+            const href: string | null = item.getAttribute('href');
+            if (href)
+                if ((route.includes(href) && href !== '/') || (route === '/' && href === '/')) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+        });
+
+        //для страниц из выпадающего списка
+        const subMenuItems: NodeListOf<Element> = document.querySelectorAll('.sidebar .collapse .nav-link');
+        for (const item of subMenuItems) {
+            const href: string | null = item.getAttribute('href');
+            const collapseElement: HTMLElement | null = document.getElementById("dashboard-collapse");
+            if (href)
+                if (route.includes(href)) {
+                    item.classList.add('active');
+                    if (collapseElement) {
+                        const toggleBtn: Element | null = document.querySelector(`[data-bs-target="#${collapseElement.id}"]`);
+                        if (toggleBtn) {
+                            toggleBtn.setAttribute('aria-expanded', 'true');
+                            toggleBtn.classList.remove('collapsed');
+                            toggleBtn.classList.add('dropdown-active');
+                        }
+                        collapseElement.classList.add('show');
+                        break;
+                    }
+                } else {
+                    item.classList.remove('active');
+                    if (collapseElement) {
+                        const toggleBtn: Element | null = document.querySelector(`[data-bs-target="#${collapseElement.id}"]`);
+                        if (toggleBtn) {
+                            toggleBtn.setAttribute('aria-expanded', 'false');
+                            toggleBtn.classList.add('collapsed');
+                            toggleBtn.classList.remove('dropdown-active');
+                        }
+                        collapseElement.classList.remove('show');
+                    }
+                }
+        }
+
+        const sidebarElement: HTMLElement | null = document.getElementById('sidebarMenu');
+
+// Слушаем клики по ссылкам в меню
+        if (sidebarElement)
+            sidebarElement.addEventListener('click', (e) => {
+                if (e.target instanceof HTMLElement && e.target.tagName === 'A') {
+                    const bsOffcanvas: InstanceType<typeof bootstrap.Offcanvas> | null = bootstrap.Offcanvas.getInstance(sidebarElement);
+
+                    if (bsOffcanvas) {
+                        // Закрываем меню программно
+                        bsOffcanvas.hide();
+
+                        // Ждем окончания анимации (300мс), прежде чем менять страницу (опционально)
+                        // Или просто чистим body сразу после вызова hide()
+                    }
+                }
+            });
+
+    }
+
+    private async redirectToLogin(): Promise<void> {
+        history.pushState({}, '', '/login');
+        await this.activateRoute();
+    }
+
+    private async clickHandler(e: Event): Promise<void> {
+
+        let element: Element | null = null;
+        if (e.target instanceof HTMLElement && e.target.nodeName === 'A') {
+            element = e.target;
+        } else if (e.target instanceof HTMLElement &&e.target.parentNode && e.target.parentNode.nodeName === 'A') {
+            element = e.target.parentNode as Element;
+        }
+
+        if (element instanceof HTMLAnchorElement && element.href) {
+            e.preventDefault();
+
+            const currentRoute:string = window.location.pathname;
+            const url:string = element.href.replace(window.location.origin, '');
+            if (!url || (currentRoute === url.replace('#', '')) || url.startsWith('javascript:void(0)')) {
+                return;
+            }
+
+            await this.openNewRoute(url);
+        }
+
+
+    }
+}
