@@ -6,16 +6,19 @@ import type {Transaction, TransactionsResult} from "../types/transactions.type";
 
 export class Dashboard {
     readonly openNewRoute: (route: string) => void;
-    private incomeChart: Chart | null;
-    private expenseChart: Chart | null;
-    readonly ctx1: HTMLCanvasElement | null;
-    readonly ctx2: HTMLCanvasElement | null;
+    private incomeChart: Chart | null = null;
+    private expenseChart: Chart | null = null;
+    private ctx1: HTMLCanvasElement | null = null;
+    private ctx2: HTMLCanvasElement | null = null;
 
 
     constructor(openNewRoute: (route: string) => void) {
         this.openNewRoute = openNewRoute;
-        this.incomeChart = null;
-        this.expenseChart = null;
+        this.init();
+
+    }
+
+    private init(): void {
         this.ctx1 = document.getElementById('incomeChart') as HTMLCanvasElement;
         this.ctx2 = document.getElementById('expenseChart') as HTMLCanvasElement;
 
@@ -26,7 +29,6 @@ export class Dashboard {
         document.querySelectorAll('.btn-period').forEach(link => {
             link.addEventListener('click', this.handlePeriodClick.bind(this));
         });
-
     }
 
     private async getTransactionsList(period?: string | null): Promise<void> {
@@ -152,7 +154,7 @@ export class Dashboard {
         else return {};
     }
 
-    private initChart(chartData:  Record<string, number>, ctx: HTMLCanvasElement): Chart {
+    private initChart(chartData: Record<string, number>, ctx: HTMLCanvasElement): Chart {
         const labels: string[] = Object.keys(chartData);
         const amounts: number[] = Object.values(chartData);
         const CHART_COLORS: string[] = config.chartColors;

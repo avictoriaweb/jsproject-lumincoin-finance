@@ -71,13 +71,13 @@ export class SignUp {
             const password: string = this.passwordElement?.value ?? "";
             const passwordRepeat: string = this.passwordRepeatElement?.value ?? "";
 
-            const signupResult: boolean | CustomResponseData = await AuthService.signUp({
+            const signupResult: boolean | CustomResponseData = await AuthService.signUp(JSON.stringify({
                 name: name,
                 lastName: lastName,
                 email: email,
                 password: password,
                 passwordRepeat: passwordRepeat,
-            });
+            }));
             if (signupResult) {
                 const loginResult: boolean | CustomResponseData = await AuthService.logIn(JSON.stringify({
                     email: email,

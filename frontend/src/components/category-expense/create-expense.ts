@@ -5,12 +5,16 @@ import type {ValidationsType} from "../../types/validations.type";
 
 export class CreateExpense {
     readonly openNewRoute: (route: string) => void;
-    readonly nameElement: HTMLInputElement | null = null;
-    readonly validations: ValidationsType[] = [];
+    private nameElement: HTMLInputElement | null = null;
+    private validations: ValidationsType[] = [];
 
     constructor(openNewRoute: (route: string) => void) {
         this.openNewRoute = openNewRoute;
 
+       this.init();
+    }
+
+    private init():void{
         const btnSave: HTMLElement | null = document.getElementById("btnSave");
         if (btnSave) {
             btnSave.addEventListener('click', this.btnSaveClick.bind(this));

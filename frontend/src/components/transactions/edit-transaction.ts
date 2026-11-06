@@ -10,15 +10,15 @@ export class EditTransaction {
     readonly openNewRoute: (route: string) => void;
     readonly id: string = '';
 
-    readonly typeSelect: HTMLSelectElement | null = null;
-    readonly categorySelect: HTMLSelectElement | null = null;
-    readonly amountInputElement: HTMLInputElement | null = null;
-    readonly dateInputElement: HTMLInputElement | null = null;
-    readonly commentInputElement: HTMLInputElement | null = null;
-    readonly datePicker: HTMLElement | null = null;
-    readonly btnSave: HTMLElement | null = null;
-    readonly btnCancel: HTMLElement | null = null;
-    readonly validations: ValidationsType[] = [];
+    private typeSelect: HTMLSelectElement | null = null;
+    private categorySelect: HTMLSelectElement | null = null;
+    private amountInputElement: HTMLInputElement | null = null;
+    private dateInputElement: HTMLInputElement | null = null;
+    private commentInputElement: HTMLInputElement | null = null;
+    private datePicker: HTMLElement | null = null;
+    private btnSave: HTMLElement | null = null;
+    private btnCancel: HTMLElement | null = null;
+    private validations: ValidationsType[] = [];
     private type: string = '';
 
     constructor(openNewRoute: (route: string) => void) {
@@ -30,6 +30,10 @@ export class EditTransaction {
         }
         this.id = id;
 
+        this.initElements();
+    }
+
+    private initElements():void{
         //находим все поля формы
         this.typeSelect = document.getElementById('typeSelect') as HTMLSelectElement;
         this.categorySelect = document.getElementById('categorySelect') as HTMLSelectElement;
@@ -37,7 +41,7 @@ export class EditTransaction {
         this.dateInputElement = document.getElementById('date') as HTMLInputElement;
         this.commentInputElement = document.getElementById('comment') as HTMLInputElement;
 
-        this.init(id).then();
+        this.init(this.id).then();
 
         this.datePicker = document.getElementById("date");
         this.initDatePicker();
@@ -71,7 +75,7 @@ export class EditTransaction {
             if (this.typeSelect) {
                 this.typeSelect.value = this.type;
             }
-            const pageTitleElement: HTMLElement = document.getElementById('pageTitle') as HTMLElement;
+            const pageTitleElement: HTMLElement = document.getElementById('page-title') as HTMLElement;
             pageTitleElement.innerText = `Редактирование ${this.type === 'income' ? 'дохода' : 'расхода'}`;
 
             if (this.categorySelect) {
@@ -111,7 +115,7 @@ export class EditTransaction {
 
     private handleDateClick(e: Event): void {
         e.preventDefault();
-        const dateElement: HTMLElement | null = e.currentTarget as HTMLElement;
+        const dateElement: HTMLInputElement | null = e.currentTarget as HTMLInputElement;
         if (dateElement) {
             const targetId: string | null = dateElement.getAttribute('data-target');
             if (targetId) {
@@ -130,7 +134,7 @@ export class EditTransaction {
                             const target: HTMLInputElement | null = event.target as HTMLInputElement;
                             if (target) {
                                 const selectedDate: string = target.value; // Получим строку "YYYY-MM-DD"
-                                dateElement.innerText = selectedDate ? selectedDate : "Дата";
+                                dateElement.value = selectedDate ? selectedDate : "Дата";
                             }
 
                         }, {once: true});

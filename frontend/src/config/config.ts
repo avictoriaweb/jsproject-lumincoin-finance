@@ -1,7 +1,7 @@
 const host = process.env.HOST;
 const config = {
     host: host,
-    api: host + "/api",
+    api: "/api",
     chartColors: [
         '#DC3545', // Red (Danger)
         '#FD7E14', // Orange

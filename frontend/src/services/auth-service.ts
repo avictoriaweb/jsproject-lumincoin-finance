@@ -11,7 +11,7 @@ export class AuthService {
         return result.response;
     }
 
-    public static async signUp(data: any): Promise<CustomResponseData | boolean> {
+    public static async signUp(data: string): Promise<CustomResponseData | boolean> {
         const result: HttpResponseType = await HttpUtils.request('/signup', 'POST', false, data);
 
         if (result.error || !result.response || (result.response && (!result.response.user?.id || !result.response.user?.email || !result.response.user?.name || !result.response.user?.lastName))) {

@@ -23,19 +23,19 @@ import type {UserInfoType} from "./types/user-info.type";
 import type {BalanceType} from "./types/balance.type";
 
 export class Router {
-    readonly contentPageElement: HTMLElement | null;
-    readonly sidebarPageElement: HTMLElement | null;
-    readonly profileNameElement: HTMLElement | null;
-    readonly balanceElement: HTMLElement | null;
+    private contentPageElement: HTMLElement | null =null;
+    private sidebarPageElement: HTMLElement | null = null;
+    //readonly profileNameElement: HTMLElement | null;
+    //readonly balanceElement: HTMLElement | null;
     private userName: string | null = null;
     private routes: RouteType[];
 
     constructor() {
-        this.contentPageElement = document.getElementById('content');
-        this.sidebarPageElement = document.getElementById('page-content');
-        this.profileNameElement = document.getElementById('profile-name');
-        this.balanceElement = document.getElementById('balance');
-
+        //this.contentPageElement = document.getElementById('content');
+        //this.sidebarPageElement = document.getElementById('page-content');
+        //this.profileNameElement = document.getElementById('profile-name');
+       // this.balanceElement = document.getElementById('balance');
+this.init();
         this.initEvents();
         this.routes = [
             {
@@ -222,6 +222,9 @@ export class Router {
 
         ];
     }
+    private init():void{  this.contentPageElement = document.getElementById('content');
+        this.sidebarPageElement = document.getElementById('page-content');
+    }
 
     private initEvents(): void {
         window.addEventListener('DOMContentLoaded', this.activateRoute.bind(this));
@@ -266,11 +269,14 @@ export class Router {
             }
 
             if (newRoute.useLayout) {
+
                 if (this.contentPageElement)
                     this.contentPageElement.innerHTML = await fetch(newRoute.useLayout as string).then(response => response.text());
+                this.sidebarPageElement = document.getElementById('page-content');
                 if (this.sidebarPageElement && newRoute.filePathTemplate)
                     this.sidebarPageElement.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
-
+                const profileNameElement:HTMLElement|null = document.getElementById('profile-name');
+                const balanceElement:HTMLElement|null = document.getElementById('balance');
                 if (!this.userName) {
 
                     let userInfo: string | AuthInfo | null = AuthUtils.getAuthInfo(AuthUtils.userInfoTokenKey);
@@ -282,11 +288,11 @@ export class Router {
                     }
 
                 }
-                if (this.profileNameElement && this.userName)
-                    this.profileNameElement.innerText = this.userName;
+                if (profileNameElement && this.userName)
+                    profileNameElement.innerText = this.userName;
                 const balance: BalanceType = await BalanceService.getBalance();
-                if (this.balanceElement && balance.balance)
-                    this.balanceElement.innerText = balance.balance.balance + '$';
+                if (balanceElement && balance.balance)
+                    balanceElement.innerText = balance.balance.balance + '$';
                 this.activateMenuItem(newRoute.route);
                 if (newRoute.route === "/create-expense" || newRoute.route === "/edit-expense") {
                     this.activateMenuItem("/expense-list");
@@ -302,7 +308,13 @@ export class Router {
             }
 
             if (newRoute.load && typeof newRoute.load === 'function') {
-                newRoute.load();
+               //newRoute.load();
+              /*  requestAnimationFrame(() => {
+                    newRoute.load!();
+                });*/
+                setTimeout(() => {
+                    newRoute.load!();
+                }, 100); // Даем браузеру ощутимую паузу на отрисовку
             }
         } else {
             console.log('No route found');

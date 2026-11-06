@@ -27,8 +27,8 @@ export class HttpUtils {
             }
         }
         if (body) {
-            params.body = JSON.stringify(body);
-            //params.body = body;
+            //params.body = JSON.stringify(body);
+            params.body = body;
         }
         let response:Response | null= null;
         try {

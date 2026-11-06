@@ -9,15 +9,15 @@ import type {ValidationsType} from "../../types/validations.type";
 export class CreateTransaction {
     readonly openNewRoute: (route: string) => void;
     private type: string = '';
-    readonly typeSelect: HTMLElement | null = null;
-    readonly categorySelect: HTMLSelectElement | null = null;
-    readonly amountInput: HTMLInputElement | null = null;
-    readonly dateInput: HTMLInputElement | null = null;
-    readonly commentInput: HTMLInputElement | null = null;
-    readonly datePicker: HTMLElement | null = null;
-    readonly btnSave: HTMLElement | null = null;
-    readonly btnCancel: HTMLElement | null = null;
-    readonly validations: ValidationsType[] = [];
+    private typeSelect: HTMLElement | null = null;
+    private categorySelect: HTMLSelectElement | null = null;
+    private amountInput: HTMLInputElement | null = null;
+    private dateInput: HTMLInputElement | null = null;
+    private commentInput: HTMLInputElement | null = null;
+    private datePicker: HTMLElement | null = null;
+    private btnSave: HTMLElement | null = null;
+    private btnCancel: HTMLElement | null = null;
+    private validations: ValidationsType[] = [];
 
     constructor(openNewRoute: (route: string) => void) {
 
@@ -28,6 +28,12 @@ export class CreateTransaction {
             return;
         }
         this.type = type;
+
+        this.init();
+    }
+
+    private init(): void {
+
         //находим все поля формы
         this.typeSelect = document.getElementById('typeSelect');
         this.categorySelect = document.getElementById('categorySelect') as HTMLSelectElement;
@@ -99,8 +105,8 @@ export class CreateTransaction {
 
     private handleDateClick(e: Event): void {
         e.preventDefault();
-        const dateElement: HTMLElement | null = e.currentTarget as HTMLElement;
-        if (dateElement) {
+    const dateElement: HTMLInputElement | null = e.currentTarget as HTMLInputElement;
+         if (dateElement) {
             const targetId: string | null = dateElement.getAttribute('data-target');
             if (targetId) {
                 const dateInput: HTMLInputElement | null = document.getElementById(targetId) as HTMLInputElement;
@@ -115,7 +121,9 @@ export class CreateTransaction {
                             const target: HTMLInputElement | null = event.target as HTMLInputElement;
                             if (target) {
                                 const selectedDate: string = target.value; // Получим строку "YYYY-MM-DD"
-                                dateElement.innerText = selectedDate ? selectedDate : "Дата";
+                                if (dateElement){
+                                    dateElement.value = selectedDate ? selectedDate : "Дата";
+                                }
                             }
                         }, {once: true});
                     }
@@ -135,7 +143,7 @@ export class CreateTransaction {
             const categoryIdValue: number = this.categorySelect ? parseInt(this.categorySelect.value) : 0;
             const commentValue: string = this.commentInput ? this.commentInput.value : '';
 
-           const createData: Transaction = {
+            const createData: Transaction = {
                 type: this.type,
                 amount: amountValue,
                 date: dateValue,
@@ -152,7 +160,7 @@ export class CreateTransaction {
 
     }
 
-    private btnCancelClick(e:Event):void {
+    private btnCancelClick(e: Event): void {
         e.preventDefault();
         return this.openNewRoute('/transactions');
     }
